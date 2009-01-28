@@ -1,0 +1,18 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module modis_bright ! in 
+    interface  ! in :modis_bright
+        function modis_bright(rad,band,units) ! in :modis_bright:modis_bright.f
+            real intent(in) :: rad
+            integer intent(in) :: band
+            integer intent(in) :: units
+            character*5 :: platform_name
+            real intent(out) :: modis_bright
+            common /platform_name_common/ platform_name
+        end function modis_bright
+    end interface 
+end python module modis_bright
+
+! This file was auto-generated with f2py (version:2_3979).
+! See http://cens.ioc.ee/projects/f2py2e/

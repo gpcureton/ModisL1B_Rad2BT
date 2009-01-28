@@ -1,0 +1,27 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module mod_br ! in 
+    interface  ! in :mod_br
+        function modis_bright(rad,platform,band,units) ! in :mod_br:modis_bright.f
+            real intent(in) :: rad
+            integer intent(in)  :: platform
+            integer intent(in)  :: band
+            integer intent(in)  :: units
+            real intent(out) :: modis_bright
+        end function modis_bright
+        function bright_m(w,r) ! in :mod_br:bright_m.f
+            real intent(in)  :: w
+            real intent(in)  :: r
+            real intent(out)  :: bright_m
+        end function bright_m
+        function brite_m(v,r) ! in :mod_br:brite_m.f
+            real intent(in)  :: v
+            real intent(in)  :: r
+            real intent(out)  :: brite_m
+        end function brite_m
+    end interface 
+end python module mod_br
+
+! This file was auto-generated with f2py (version:2_3979).
+! See http://cens.ioc.ee/projects/f2py2e/

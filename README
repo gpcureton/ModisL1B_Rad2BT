@@ -1,0 +1,43 @@
+#############################################################
+#                                                           #
+#         MODIS: Radiance to Brightness Temperature         #
+#                                                           #
+#############################################################
+
+I got a hold of Liam's radiance to BT code, and ran it through f2py to make 
+the python module mod_br.so
+
+I have included the commands I ran in f2py_commands.txt. The first generates 
+the mod_br.pyf file... 
+
+	f2py modis_bright.f bright_m.f brite_m.f -m mod_br -h mod_br.pyf --overwrite-signature
+
+which you then edit to put in the "intent" statments in 
+the variable declarations. The second command generates the module file...
+
+	f2py -c mod_br.pyf modis_bright.f bright_m.f brite_m.f
+
+I ended up inlining the included code, and removing Liam's common block. f2py 
+doesn't seem to know what to do with included code (or I don't know the f2py 
+command to do it properly).
+
+The main function is modis_bright(radiance,platform,band,units). Check 
+modis_bright.f for the definitions. But for platform, 0==Terra, 1==Aqua
+
+This is how I used the module...
+
+from mod_br import *
+from scipy import *
+
+modis_bright(12.,1,31,1)
+Out[16]: 316.25592041015625
+
+In [17]: radiance = linspace(5.,12.,10)
+
+In [18]: modBT = vectorize(modis_bright)
+
+In [19]: brightTempsAqua = modBT(radiance,1,31,1)
+
+In [20]: print brightTempsAqua
+[ 261.40756226  269.14404297  276.27868652  282.92977905  289.18231201
+  295.09991455  300.73129272  306.11483765  311.28134155  316.25592041]
