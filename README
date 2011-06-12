@@ -69,19 +69,20 @@ modis_bright.f for the definitions. But for platform, 0==Terra, 1==Aqua
 
 This is how I used the module...
 
-from mod_br import *
-from scipy import *
+import mod_br as mod_br
+import scipy as spy
+import numpy as np
 
-modis_bright(12.,1,31,1)
+mod_br.modis_bright(12.,1,31,1)
 Out[16]: 316.25592041015625
 
-In [17]: radiance = linspace(5.,12.,10)
+radiance = np.linspace(5.,12.,10)
 
-In [18]: modBT = vectorize(modis_bright)
+modBT = np.vectorize(mod_br.modis_bright)
 
-In [19]: brightTempsAqua = modBT(radiance,1,31,1)
+brightTempsAqua = modBT(radiance,1,31,1)
 
-In [20]: print brightTempsAqua
+print brightTempsAqua
 [ 261.40756226  269.14404297  276.27868652  282.92977905  289.18231201
   295.09991455  300.73129272  306.11483765  311.28134155  316.25592041]
 
